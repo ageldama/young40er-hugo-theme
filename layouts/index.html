@@ -21,7 +21,8 @@
                         {{ if .Draft }} <span class="draft-label">[DRAFT]</span> {{ end }}</time>
                     <br><div class="description">
 			{{ if isset .Params "description" }}
-			{{   .Description }}
+			<span class="short-description">{{   .Description }}</span>
+                        <br><br>
 			{{ else }}
 			{{   .Summary }}&hellip;
 			{{ end }}
