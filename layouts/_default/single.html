@@ -2,6 +2,14 @@
 <main>
     {{ partial "prevnext.html" . }}
 
+    {{ if isset .Params "description" }}
+    <div class="description">
+	<span class="short-description">
+            {{ .Description }}
+        </span>
+    </div>
+    {{ end }}
+
     {{ .TableOfContents }}
 
     <article>
