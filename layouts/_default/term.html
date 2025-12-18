@@ -6,8 +6,8 @@
 {{ end }}
 
 <ol class="posts">
-	{{- range .Data.Pages -}}
-		{{- if (not (in (.Site.Params.excludedTypes | default (slice "page")) .Type)) -}}
+    {{- range .Data.Pages -}}
+    {{-   if (not (in (.Site.Params.excludedTypes | default (slice "page")) .Type)) -}}
     <li class="post">
         {{/*<span class="meta">[{{ dateFormat "2006-01-02" .Date }}]{{ if .Draft }} <span class="draft-label">[DRAFT]</span> {{ end }}</span> */}}
         <span class="meta">
@@ -15,9 +15,21 @@
                 {{ dateFormat "2006-01-02" .Date }}
             </time>
         </span>
-	<a href="{{ .RelPermalink }}">{{.Title}}</a> 
-		</li>
-		{{- end -}}
-	{{- end -}}
+	<a href="{{ .RelPermalink }}">{{.Title}}</a>
+        <br>
+        <div class="preview">
+            {{ if isset .Params "description" }}
+	    <span class="short-description">
+                {{ .Description }}
+            </span>
+            {{ else }}
+            <span class="preview-content">
+                {{ strings.Truncate 50 "..." (.Content | plainify) }}
+            </span>
+            {{ end }}
+        </div>
+    </li>
+    {{-   end -}}
+    {{- end -}}
 </ol>
 {{ end }}

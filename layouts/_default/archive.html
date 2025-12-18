@@ -62,7 +62,15 @@
                       {{ $emoji }} {{ .Title }}
                   </a>
                   <div class="preview">
-                      {{ strings.Truncate 300 "..." (.Content | plainify) }}
+                      {{ if isset .Params "description" }}
+		      <span class="short-description">
+                          {{ .Description }}
+                      </span>
+                      {{ else }}
+                      <span class="preview-content">
+                          {{ strings.Truncate 300 "..." (.Content | plainify) }}
+                      </span>
+                      {{ end }}
                   </div>
               </li>
               {{ end }}

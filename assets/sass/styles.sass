@@ -341,9 +341,6 @@ main article blockquote
     font-size: 1.3rem
     font-style: bold
 
-  .preview
-    font-size: 0.9rem
-    font-style: italic
 
 
 img
@@ -461,13 +458,20 @@ hr.archive-ruler
   border: solid 1px $color_border
 
 
+.preview-content
+  font-size: 0.9rem
+  font-style: italic
 
 
-.description .short-description
+.short-description
   background-color: $color_border
-
-  margin-bottom: 3rem
+  //margin-bottom: 3rem
 
   &::before
     content: "⁝ "
+
+.preview > .short-description
+  font-size: 0.9rem
+
+
 
