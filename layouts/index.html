@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    {{ partial "header.html" . }}
+    <body>
+        <div class="container">
+            {{ partial "head.html" . }}
+
+	    <main class="list">
+		<div class="site-description">
+                    {{- if isset .Site.Params "subtitle" -}}
+                    <blockquote>{{ .Site.Params.Subtitle | safeHTML }}</blockquote>
+                    {{- end -}}
+		</div>
+		{{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+		{{ $paginator := .Paginate (where $pages "Params.hidden" "ne" true) }}
+		{{ range $paginator.Pages }}
+		<section class="list-item">
+                    {{- $emoji := partial "emojibyhash.html" (dict "input" .Title) -}}
+		    <h1 class="title"><a href="{{ .RelPermalink }}">{{$emoji}} {{.Title}}</a></h1>
+                    <time>{{ dateFormat "2006년01월02일" .Date }}
+                        {{ if .Draft }} <span class="draft-label">[DRAFT]</span> {{ end }}</time>
+                    <br><div class="description">
+			{{ if isset .Params "description" }}
+			{{   .Description }}
+			{{ else }}
+			{{   .Summary }}&hellip;
+			{{ end }}
+		    </div>
+                    <span class="permalink">
+			<a href="{{ .RelPermalink }}" class="button-link">▶️ 읽으러 가기</a>
+                    </span>
+		</section>
+		{{ end }}
+		{{ partial "paginator.html" . }}
+	    </main>
+	    {{ partial "footer.html" . }}
+	</div>
+    </body>
+</html>

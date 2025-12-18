@@ -1,0 +1,22 @@
+{{ $iecompat_scripts := "" }}
+{{ range $i, $e := resources.Match "js/iecompat/*.js" }}
+    {{ if $i }}
+        {{ $iecompat_scripts = (printf "%s," $iecompat_scripts) }}
+    {{ end }}
+    {{ $iecompat_scripts = (printf "%s%#v" $iecompat_scripts $e.RelPermalink) }}
+{{ end }}
+
+<!-- If you don't need IE 11 support you can remove this next script block -->
+<script>
+ // @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&dn=gpl-3.0.txt GPL-v3-or-Later
+ if (window.navigator.userAgent.indexOf('Trident/') > 0) {
+     let urls = [ {{- $iecompat_scripts | safeJS -}} ];
+     let head = document.getElementsByTagName("head")[0];
+     urls.forEach(function(url) {
+         let script = document.createElement("script");
+         script.src = url;
+         head.appendChild(script);
+     });
+ }
+ // @license-end
+</script>

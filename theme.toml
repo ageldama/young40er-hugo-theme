@@ -1,0 +1,13 @@
+
+name = "young40er"
+license = "MIT"
+licenselink = "https://github.com/ageldama/young40er-hugo-theme/blob/master/LICENSE"
+description = "영포티전용테마"
+homepage = "https://github.com/ageldama/young40er-hugo-theme"
+tags = ["blog","simple","responsive","minimal","tags","personal","clean","shortcodes","sweet","young40","midlife","crisis"]
+features = ["blog", "Clean and minimal", "Responsive", "Syntax highlighting","Midlife Crisis", "So Sweet"]
+min_version = "0.40"
+
+[author]
+  name = "윤종혁"
+  homepage = "https://github.com/ageldama"

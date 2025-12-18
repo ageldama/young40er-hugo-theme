@@ -1,0 +1,466 @@
+
+{{ if .Site.Params.DefaultSassPrepend }}
+{{ .Site.Params.DefaultSassPrepend }}
+{{ end }}
+
+
+$mobile_width: 600px
+
+$font_default: serif
+$font_mono: monospace
+
+
+$bg_beige: #fffbeb
+$bg_beige_darker: #f0ecdd
+$blackish_text: #5c5537
+$redish_orange: #ff6719
+$redish_orange_visited: #dd6719
+$redish_orange_border: #e6e2d4
+
+
+$color_bg: $bg_beige // NOTE head.html
+$color_text: $blackish_text
+$color_link: $redish_orange
+$color_link_visited: $redish_orange_visited
+$color_border: $redish_orange_border
+$color_box_shadow: $redish_orange_border
+
+
+
+body
+  padding: 1rem
+  font-family: $font_default
+
+  background-color: $color_bg // NOTE don't forget `head.html'!
+  color: $color_text
+  // font-optical-sizing: auto;
+
+
+
+a
+  /* 기본 상태 */
+  color: $color_link
+  @extend .hvr-box-shadow-outset !optional
+
+a:link
+  /* href 속성이 명시된 상태 */
+
+a:visited
+  /* 링크를 클릭해본 상태 */
+  color: $color_link_visited
+
+a:focus
+  /* 링크 위에 키보드 포커스가 위치한 상태 */
+
+a:hover
+  /* 링크 위에 마우스 포인터가 위치한 상태 */
+
+a:active
+  /* 링크 위에 마우스 포인터를 두고 좌측 버튼을 계속 클릭하고 있는 상태 */
+
+
+
+button
+  background: $redish_orange
+  color: white
+  border: solid 1px $redish_orange //$color_border;
+  border-radius: 5%
+  // box-shadow: 2px 2px 1px $color_box_shadow;
+
+  &:disabled
+    background: $redish_orange_visited
+    color: $color_text
+    text-decoration: line-through
+    cursor: not-allowed
+
+
+
+input[type=text]
+  color: $color_text
+  background: white
+  border: solid 1px $redish_orange
+  border-radius: 3%
+  // box-shadow: 2px 2px 1px $color_box_shadow;
+
+  &:disabled
+    background: #cccccc
+    cursor: not-allowed
+
+  &:focus
+    // border: solid 1px $redish_orange;
+    // box-shadow: 2px 2px 1px $color_box_shadow;
+
+
+
+code
+  font-family: $font_mono
+
+
+
+pre
+  font-family: $font_mono
+
+
+
+
+header
+  display: flex
+  justify-content: space-between
+
+  @media (max-width: $mobile_width)
+    display: block
+
+
+header .main
+  @media (max-width: $mobile_width)
+    padding-bottom: 2rem
+
+
+
+header .site-title
+  margin-top: 0px
+  margin-bottom: 0px
+
+  @extend .hvr-bob !optional
+
+
+header .site-title a
+  font-family: $font_mono
+  // font-family: 'DosSammul';
+  // font-family: 'DosSammul';
+  font-weight: bold
+  font-style: italic
+
+  background-color: white
+  border: solid 1px grey // $simpler_lime_green;
+  color: purple
+
+  text-decoration: none
+
+  margin-top: 0px
+  margin-bottom: 0px
+
+  @media screen and (min-width: $mobile_width)
+    font-size: 2rem
+    padding: 1rem
+
+    //box-shadow: 5px 3px 1px $simpler_lime_green_darker;
+    box-shadow: 8px 8px 0px black
+    text-shadow: -2px -2px 0px #f00, /* Top-left shadow, red */ 2px 2px 0px #00f,   /* Bottom-right shadow, blue */ 4px 4px 0px #0f0   /* Further bottom-right shadow, green */
+
+
+  @media (max-width: $mobile_width)
+    padding: 1rem
+    font-size: 2rem
+    //box-shadow: 5px 3px 1px $simpler_lime_green_darker;
+    box-shadow: 5px 5px 0px black
+
+    text-shadow: -2px -2px 0px #f00, /* Top-left shadow, red */ 2px 2px 0px #00f,   /* Bottom-right shadow, blue */ 4px 4px 0px #0f0   /* Further bottom-right shadow, green */
+
+
+
+header nav
+  // font-weight: bold;
+  // font-style: normal;
+
+  @media screen and (min-width: $mobile_width)
+    font-size: 1.1rem
+    align-self: flex-end
+    display: flex
+    justify-content: space-between
+    column-gap: 1.1rem
+
+  @media (max-width: $mobile_width)
+    display: block
+
+  a
+    @extend .hvr-wobble-top !optional
+
+
+
+.global-footer
+  text-align: center
+  font-size: 0.9rem
+  padding: 1rem
+
+
+
+.post-prevnext
+  @media screen and (min-width: $mobile_width)
+    display: flex
+    justify-content: space-between
+
+    padding: 0.3rem
+
+    font-weight: bold
+    font-style: normal
+    font-size: 1rem
+
+
+  @media (max-width: $mobile_width)
+    font-weight: bold
+    font-style: normal
+
+
+.post-prevnext .post-prevnext-side
+  @media (max-width: $mobile_width)
+    display: block
+
+  @extend .hvr-wobble-horizontal !optional
+
+
+
+.posts-pagination
+  @media screen and (min-width: $mobile_width)
+    display: flex
+    justify-content: center
+    column-gap: 1.5rem
+
+    font-weight: bold
+    font-size: 1.0rem
+
+  @media (max-width: $mobile_width)
+    text-align: center
+
+
+.posts-pagination .posts-pagination-indicator
+  border: solid 1px $color_border
+  border-radius: 15% 10% / 5% 20%
+  box-shadow: 5px 3px 1px $color_box_shadow
+
+  padding-left: 0.3rem
+  padding-right: 0.3rem
+
+  @media (max-width: $mobile_width)
+    display: block
+
+  @extend .hvr-underline-from-center !optional
+
+
+.posts-pagination-last, .posts-pagination-newer
+  @extend .hvr-skew-backward !optional
+
+
+.posts-pagination-first, .posts-pagination-older
+  @extend .hvr-skew-forward !optional
+
+
+.search
+  @media screen and (min-width: $mobile_width)
+    padding: 1rem
+
+.search-form
+  display: flex
+  justify-content: end
+  align-self: flex-end
+
+.search-form .search-query
+  width: 10rem
+
+  @extend .hvr-grow !optional
+
+
+.search-result-row
+  @media screen and (min-width: $mobile_width)
+    font-size: 1.5rem
+
+  @media (max-width: $mobile_width)
+    //
+
+
+
+main.list .list-item
+  margin-bottom: 2.5rem
+  padding: 1rem
+  border: solid 1px $color_border
+  box-shadow: 5px 3px 1px $color_box_shadow
+  border-radius: 3% 2% / 3% 7%
+
+  .title
+    @extend .hvr-wobble-to-top-right !optional
+
+
+main.list .list-item:hover
+  border: solid 1px $color_border
+
+
+main.list .list-item time
+  font-size: 0.7rem
+
+  &::before
+    content: "🗓️ "
+
+
+
+main article
+  border: solid 1px $color_border
+  box-shadow: 5px 3px 1px $color_box_shadow
+  border-radius: 2% 1% / 1% 3%
+
+  padding: 1rem
+
+
+main article .title
+  // font-size: 1.5rem;
+
+
+main article time
+  font-size: 0.7rem
+
+  &::before
+    content: "🗓️ "
+
+
+.meta time
+  font-size: 0.7rem
+
+  &::before
+    content: "🗓️ "
+
+
+main article blockquote
+  margin: 1rem
+  font-style: italic
+  font-size: 1.0rem
+
+  &::before
+    content: "🦜️"
+    font-style: italic
+    font-size: 1.5rem
+
+  p
+    margin-top: 0rem
+    margin-left: 1.3rem
+
+
+
+.article__list li
+  margin-bottom: 1rem
+
+  a
+    font-size: 1.3rem
+    font-style: bold
+
+  .preview
+    font-size: 0.9rem
+    font-style: italic
+
+
+img
+  /* Ensures the image does not exceed the width of its container */
+  max-width: 100%
+  height: auto
+  @media (max-width: $mobile_width)
+    display: block
+    /* Prevents extra space below the image, especially when used in layouts */
+
+
+
+
+.sec-categories
+  // @media screen and (min-width: $mobile_width) {
+  columns: 12rem
+
+.sec-tags
+  columns: 12rem
+  // @media screen and (min-width: $mobile_width) {
+  //     column-count: auto;
+  //     // column-span: all;
+  // }
+
+.sec-toc
+  text-align: right
+
+
+.toc-link::before
+  content: "/"
+  padding-left: 1rem
+
+
+.snow-mode-btn
+  @extend .hvr-wobble-top !optional
+
+
+.dark-mode-btn
+  @extend .hvr-wobble-top !optional
+
+  @media screen and (min-width: $mobile_width)
+    // padding: 0.1rem;
+
+  @media (max-width: $mobile_width)
+    // display: block;
+    margin: 1rem
+
+
+#TableOfContents
+  display: flex
+
+  // background-color: grey;
+
+  &::before
+    font-size: 1.5rem
+    content: "📑"
+
+  > ul
+    border: dotted 1px $color_border
+    border-radius: 15% 10% / 5% 20%
+    box-shadow: 5px 3px 1px $color_box_shadow
+    padding: 1rem
+
+
+figure
+  border: 1px solid $color_border
+  padding: 1rem
+  margin: 1rem
+  width: fit-content /* Adjust container width to image size */
+
+
+figcaption
+  text-align: center
+  font-style: italic
+  //  margin-top: ;
+
+
+.permalink
+  // font-size: 1.1rem;
+  // font-weight: bold;
+  // font-style: italic;
+
+  @extend .hvr-wobble-to-top-right !optional
+
+
+.button-link
+  background-color: $redish_orange
+  color: white
+  padding: 0.1rem /* Spacing */
+  text-align: center /* Center text */
+  text-decoration: none /* Remove default underline */
+  border: solid 1px $redish_orange
+  border-radius: 5% /* Rounded corners */
+  display: inline-block /* Allows padding/margin to work correctly */
+  cursor: pointer
+
+  &:hover
+    //background-color: #0056b3;
+
+
+a.button-link, a.button-link:visited
+  color: white
+
+
+
+hr
+  margin-left: 1rem
+  margin-right: 1rem
+  border: dashed 1px $color_border
+
+
+
+hr.archive-ruler
+  margin: 1rem
+  border: solid 1px $color_border
+
+
+
+
+  

@@ -1,0 +1,5 @@
+<footer class="global-footer">
+    {{ dateFormat "2006" now }} {{ with .Site.Copyright }} {{ .|safeHTML }} {{ end }} | Built with <a href="https://gohugo.io">Hugo</a> + <a href="https://github.com/ageldama/young40er-hugo-theme/">young40er theme</a> <code>{{ time.Now.Unix }}</code> | Subscribe <a href="/index.xml" >📡 RSS</a>
+</footer>
+
+{{ partial "googleanalytics.html" . }}

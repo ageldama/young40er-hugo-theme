@@ -1,0 +1,15 @@
+<nav class="post-prevnext" aria-label="posts">
+    <span class="post-prevnext-side">
+        {{with .Next}}
+        <a class="post-prevnext-btn" href="{{.Permalink}}">⬅️ {{.Params.Title}}</a>
+        {{else}}
+        <a class="post-prevnext-btn disabled" role="button" aria-disabled="true" href=""></a>
+        {{end}}
+    </span>
+
+    <span class="post-prevnext-side">
+        {{with .Prev}}
+        <a class="post-prevnext-btn" href="{{.Permalink}}">➡️ {{.Params.Title}}</a>
+        {{end}}
+    </span>
+</nav>

@@ -1,0 +1,65 @@
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {{- $title := ( .Title ) -}}
+    {{- $siteTitle := ( .Site.Title ) -}}
+    {{- if .IsHome -}}
+    <title>{{ $siteTitle }} | Home </title>
+    {{- else -}}
+    <title>{{ $title }} - {{ $siteTitle }}</title>
+    {{- end -}}
+
+    {{- if isset .Site.Params "favicon" -}}
+    <link rel="icon" type="image/png" href={{ .Site.Params.favicon }} />
+    {{- end -}}
+
+    <meta name="hugo-gen-timestamp" content="{{ time.Now.Unix }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
+    <meta property="og:image" content="{{ .Site.Params.og_image }}"/>
+    {{ with .OutputFormats.Get "rss" -}}
+    {{   printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
+
+    {{ if .Site.Params.UseDefaultSass }}
+    {{   with resources.Get "sass/styles.sass" | resources.ExecuteAsTemplate "" . }}
+    {{     $opts := dict
+              "enableSourceMap" (not hugo.IsProduction)
+              "outputStyle" (cond hugo.IsProduction "compressed" "expanded")
+              "targetPath" "css/styles.css"
+              "transpiler" "libsass"
+    }}
+    {{     with . | toCSS $opts }}
+    {{       if hugo.IsProduction }}
+    {{         with . | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}"
+          integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+    {{         end }}
+    {{       else }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{       end }}
+    {{     end }}
+    {{   end }}
+    {{ end }}
+
+    {{ if .Site.Params.HeaderHtml -}}
+    {{   .Site.Params.HeaderHtml | safeHTML }}
+    {{- end -}}
+
+    <!-- Custom CSS style get applied last -->
+    {{- if isset .Site.Params "customcss" }}
+    {{   range .Site.Params.customCSS }}
+    {{     $customstyle := resources.Get . | fingerprint }}
+    <link rel="stylesheet" type="text/css" href="{{ $customstyle.Permalink }}">
+    {{   end }}
+    {{- end -}}
+    {{- range .Site.Params.customJS }}
+    {{-   if or (hasPrefix . "http://") (hasPrefix . "https://") }}
+    <script src="{{ . }}"></script>
+    {{-   else if (hasPrefix . "<script")}}
+    {{      .| safeHTML }}
+    {{-   else }}
+    <script src="{{ $.Site.BaseURL }}{{ . }}"></script>
+    {{-   end }}
+    {{- end }}
+</head>

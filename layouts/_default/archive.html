@@ -1,0 +1,113 @@
+{{ define "main" }}
+
+<main class="list">
+
+<section class="section is-fullheight sec-toc">
+
+    <span class="toc-link"><a href="#sec-categories">Categories😺({{ len .Site.Taxonomies.categories }}개)</a></span>
+    <span class="toc-link"><a href="#sec-tags">Tags🏷️({{ len .Site.Taxonomies.tags }}개)</a></span>
+
+    {{ $type := .Type }}
+    {{ $.Scratch.Set "count" 1 }}
+    {{ $totalpages := 0 }}
+
+    {{ range (.Site.RegularPages.GroupByDate "2006") }}
+    {{   if and (gt .Key 1) (gt (where .Pages "Type" $type) 0) }}
+
+    {{     $.Scratch.Set "pages" (.Len) }}
+    {{     range (where .Pages "Type" $type) }}
+    {{       if (eq ($.Scratch.Get "count") 1) }}
+    {{         $.Scratch.Set "count" 0 }}
+    {{         $pagecount := $.Scratch.Get "pages" }}
+    <span class="toc-link"><a href="#year-{{ .Date.Format "2006" }}">{{ .Date.Format "2006" }}년({{ $pagecount }}건)</a></span>
+    {{         $totalpages = add $totalpages $pagecount }}
+    {{       end }}
+    {{     end }}
+    {{     $.Scratch.Set "count" 1 }}
+
+    {{   end }}
+    {{ end }}
+
+    <span class="toc-link">전체🍵({{ $totalpages }}건)</span>
+
+</section>
+
+<hr class="archive-ruler">
+
+<section class="section is-fullheight sec-posts">
+  {{ $type := .Type }}
+  {{ $.Scratch.Set "count" 1 }}
+
+    {{ range (.Site.RegularPages.GroupByDate "2006") }}
+      {{ if and (gt .Key 1) (gt (where .Pages "Type" $type) 0) }}
+
+      {{ $.Scratch.Set "pages" (.Len) }}
+
+        {{ range (where .Pages "Type" $type) }}
+          {{ if (eq ($.Scratch.Get "count") 1) }}
+            {{ $.Scratch.Set "count" 0 }}
+            <h1 id="year-{{ .Date.Format "2006" }}" class="title is-4 has-text-weight-normal archive-year">{{ .Date.Format "2006" }}년({{ $.Scratch.Get "pages" }}건)
+                <a href="#year-{{ .Date.Format "2006" }}">#</a></h1>
+          {{ end }}
+        {{ end }}
+
+        {{ $.Scratch.Set "count" 1 }}
+
+          <ul class="article__list">
+          {{ range (where .Pages "Type" $type) }}
+            {{ if (ne .Params.hidden true) }}
+              <li>{{ .Date.Format "01월02일" }}
+                  {{- $emoji := partial "emojibyhash.html" (dict "input" .Title) -}}
+                  <a class="is-block" href="{{ .RelPermalink }}">
+                      {{ $emoji }} {{ .Title }}
+                  </a>
+                  <div class="preview">
+                      {{ strings.Truncate 300 "..." (.Content | plainify) }}
+                  </div>
+              </li>
+              {{ end }}
+              {{ end }}
+          </ul>
+
+          {{ end }}
+          {{ end }}
+</section>
+
+<hr class="archive-ruler">
+
+<section class="section is-fullheight sec-categories">
+    <h1 id="sec-categories" class="page-title">Categories😺({{ len .Site.Taxonomies.categories }}) <a href="#sec-categories">#</a></h1>
+    <ul class="tags">
+	{{range $name, $taxonomy := .Site.Taxonomies.categories}} {{ $cnt := .Count }}
+	  {{ with $.Site.GetPage (printf "/categories/%s" $name) }}
+          <li class="tagbutton">
+		<a href={{ .RelPermalink }} title="All pages with category <i>{{$name}}</i>">😺 {{$name}}</a>
+		<sup>{{$cnt}}</sup>
+          </li>
+          {{end}}
+          {{end}}
+    </ul>
+</section>
+
+<hr class="archive-ruler">
+
+<section class="section is-fullheight sec-tags">
+    <h1 id="sec-tags" class="page-title">Tags🏷️({{ len .Site.Taxonomies.tags }}) <a href="#sec-tags">#</a></h1>
+    <ul class="tags">
+	{{range $name, $taxonomy := .Site.Taxonomies.tags}} {{ $cnt := .Count }}
+	  {{ with $.Site.GetPage (printf "/tags/%s" $name) }}
+          <li class="tagbutton">
+		<a href={{ .RelPermalink }} title="All pages with tag <i>{{$name}}</i>">🏷️ {{$name}}</a>
+		<sup>{{$cnt}}</sup>
+          </li>
+          {{end}}
+          {{end}}
+    </ul>
+</section>
+
+<hr class="archive-ruler">
+
+</main>
+
+
+{{ end }}

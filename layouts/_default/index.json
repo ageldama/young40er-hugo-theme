@@ -1,0 +1,21 @@
+{{ $jsoncount := 0 }}
+[{{ range $index, $page := .Site.Pages }}
+ {{- if ne $page.Type "json" -}}
+ {{- if or (eq $page.Type "page") (eq $page.Type "posts") -}}
+ {{- if gt $jsoncount 0 -}},{{- end }}
+ {
+     "permalink": "{{ $page.Permalink }}",
+     {{- $emoji := partial "emojibyhash.html" (dict "input" .Title) -}}
+     "title": "{{ $emoji }} {{ htmlEscape $page.Title}}",
+     {{ if gt $page.Params.tags 0 }}
+     "tags": [{{ range $tindex, $tag := $page.Params.tags }}{{ if $tindex }}, {{ end }}"{{ $tag| htmlEscape }}"{{ end }}],
+     {{ else }}
+     "tags": [],
+     {{ end }}
+ "description": "{{ htmlEscape .Description}}",
+ "contents": {{$page.Plain | jsonify}}
+  {{- $jsoncount = add $jsoncount 1 -}}
+ }
+ {{- end -}}
+ {{- end -}}
+ {{- end -}}]
