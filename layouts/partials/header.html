@@ -24,10 +24,10 @@
     {{ if .Site.Params.UseDefaultSass }}
     {{   with resources.Get "sass/styles.sass" | resources.ExecuteAsTemplate "" . }}
     {{     $opts := dict
-              "enableSourceMap" (not hugo.IsProduction)
-              "outputStyle" (cond hugo.IsProduction "compressed" "expanded")
-              "targetPath" "css/styles.css"
-              "transpiler" "libsass"
+    "enableSourceMap" (not hugo.IsProduction)
+    "outputStyle" (cond hugo.IsProduction "compressed" "expanded")
+    "targetPath" "css/styles.css"
+    "transpiler" "libsass"
     }}
     {{     with . | toCSS $opts }}
     {{       if hugo.IsProduction }}
@@ -43,7 +43,11 @@
     {{ end }}
 
     {{ if .Site.Params.HeaderHtml -}}
-    {{   .Site.Params.HeaderHtml | safeHTML }}
+    {{-   $templateString := .Site.Params.HeaderHtml -}}
+    {{-   $resource := resources.FromString (printf "tempfile-HeaderHtml-%d.html" now.UnixNano) $templateString -}}
+    {{-   $executedResource := resources.ExecuteAsTemplate "output.html" . $resource -}}
+    {{-   $outputString := $executedResource.Content -}}
+    {{-   $outputString | safeHTML -}}
     {{- end -}}
 
     <!-- Custom CSS style get applied last -->
