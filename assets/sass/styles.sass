@@ -81,6 +81,10 @@ $monochrome_black:	#000000
 
 
 
+.no-break-text
+    white-space: nowrap
+
+
 body
   padding: 1rem
   font-family: $font_default
@@ -174,6 +178,7 @@ header .site-title
   margin-bottom: 0px
 
   @extend .hvr-bob !optional
+  @extend .no-break-text
 
 
 header .site-title a
@@ -193,7 +198,7 @@ header .site-title a
   @media screen and (min-width: $mobile_width)
     font-size: 1.5rem
     padding: 0.3rem
-    box-shadow: 8px 8px 0px var(--site-title-box-shadow-color)
+    box-shadow: 3px 3px 0px var(--site-title-box-shadow-color)
     text-shadow: -2px -2px 0px #f00, 2px 2px 0px #00f, 4px 4px 0px #0f0
     // NOTE raw-color
 
@@ -201,7 +206,7 @@ header .site-title a
   @media (max-width: $mobile_width)
     font-size: 1.5rem
     padding: 0.3rem
-    box-shadow: 5px 5px 0px var(--site-title-box-shadow-color)
+    box-shadow: 3px 3px 0px var(--site-title-box-shadow-color)
     text-shadow: -2px -2px 0px #f00, 2px 2px 0px #00f, 4px 4px 0px #0f0
     // NOTE raw-color
 
@@ -333,6 +338,7 @@ main article .title
 
 main article time
   font-size: 0.7rem
+  @extend .no-break-text
 
   &::before
     content: "🗓️ "
@@ -340,6 +346,7 @@ main article time
 
 .meta time
   font-size: 0.7rem
+  @extend .no-break-text
 
   &::before
     content: "🗓️ "
