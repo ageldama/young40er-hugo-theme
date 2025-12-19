@@ -15,7 +15,7 @@
                 {{ dateFormat "2006-01-02" .Date }}
             </time>
         </span>
-	<a href="{{ .RelPermalink }}">{{.Title}}</a>
+	<a href="{{ .RelPermalink }}" class="article-link" >{{.Title}}</a>
         <br>
         <div class="preview">
             {{ if isset .Params "description" }}
@@ -24,7 +24,7 @@
             </span>
             {{ else }}
             <span class="preview-content">
-                {{ strings.Truncate 50 "..." (.Content | plainify) }}
+                {{ strings.Truncate 100 "..." (.Content | plainify) }}
             </span>
             {{ end }}
         </div>

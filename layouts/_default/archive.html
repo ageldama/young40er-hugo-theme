@@ -54,11 +54,11 @@
         {{ $.Scratch.Set "count" 1 }}
 
           <ul class="article__list">
-          {{ range (where .Pages "Type" $type) }}
-            {{ if (ne .Params.hidden true) }}
+              {{ range (where .Pages "Type" $type) }}
+              {{ if (ne .Params.hidden true) }}
               <li>{{ .Date.Format "01월02일" }}
                   {{- $emoji := partial "emojibyhash.html" (dict "input" .Title) -}}
-                  <a class="is-block" href="{{ .RelPermalink }}">
+                  <a class="article-link" href="{{ .RelPermalink }}">
                       {{ $emoji }} {{ .Title }}
                   </a>
                   <div class="preview">
@@ -68,7 +68,7 @@
                       </span>
                       {{ else }}
                       <span class="preview-content">
-                          {{ strings.Truncate 300 "..." (.Content | plainify) }}
+                          {{ strings.Truncate 100 "..." (.Content | plainify) }}
                       </span>
                       {{ end }}
                   </div>

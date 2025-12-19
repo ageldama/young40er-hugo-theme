@@ -118,7 +118,7 @@ button
   background: var(--button-bg-color)
   color: var(--button-text-color)
   border: solid 1px var(--button-border-color)
-  border-radius: 5%
+  // border-radius: 5%
 
   &:disabled
     background: var(--button-bg-disabled-color)
@@ -132,7 +132,7 @@ input[type=text]
   color: var(--text-color)
   background: var(--input-text-bg-color)
   border: solid 1px var(--input-text-border-color)
-  border-radius: 3%
+  // border-radius: 3%
 
   &:disabled
     background: var(--input-text-text-disabled-color)
@@ -191,16 +191,16 @@ header .site-title a
   margin-bottom: 0px
 
   @media screen and (min-width: $mobile_width)
-    font-size: 2rem
-    padding: 1rem
+    font-size: 1.5rem
+    padding: 0.3rem
     box-shadow: 8px 8px 0px var(--site-title-box-shadow-color)
     text-shadow: -2px -2px 0px #f00, 2px 2px 0px #00f, 4px 4px 0px #0f0
     // NOTE raw-color
 
 
   @media (max-width: $mobile_width)
-    padding: 1rem
-    font-size: 2rem
+    font-size: 1.5rem
+    padding: 0.3rem
     box-shadow: 5px 5px 0px var(--site-title-box-shadow-color)
     text-shadow: -2px -2px 0px #f00, 2px 2px 0px #00f, 4px 4px 0px #0f0
     // NOTE raw-color
@@ -270,8 +270,8 @@ header nav
 
 .posts-pagination .posts-pagination-indicator
   border: solid 1px var(--border-color)
-  border-radius: 15% 10% / 5% 20%
-  box-shadow: 5px 3px 1px var(--box-shadow-color)
+  /* border-radius: 15% 10% / 5% 20%
+  box-shadow: 3px 3px 1px var(--box-shadow-color)
 
   padding-left: 0.3rem
   padding-right: 0.3rem
@@ -279,15 +279,15 @@ header nav
   @media (max-width: $mobile_width)
     display: block
 
-  @extend .hvr-underline-from-center !optional
+  @extend .hvr-grow !optional
 
 
 .posts-pagination-last, .posts-pagination-newer
-  @extend .hvr-skew-backward !optional
+  @extend .hvr-wobble-horizontal !optional
 
 
 .posts-pagination-first, .posts-pagination-older
-  @extend .hvr-skew-forward !optional
+  @extend .hvr-wobble-horizontal !optional
 
 
 .search
@@ -314,33 +314,15 @@ header nav
 
 
 
-main.list .list-item
-  margin-bottom: 2.5rem
-  padding: 1rem
-  border: solid 1px var(--border-color)
-  box-shadow: 5px 3px 1px var(--box-shadow-color)
-  border-radius: 3% 2% / 3% 7%
-
-  .title
-    @extend .hvr-wobble-to-top-right !optional
-
-
-main.list .list-item:hover
-  border: solid 1px var(--border-color)
-
-
-main.list .list-item time
-  font-size: 0.7rem
-
-  &::before
-    content: "🗓️ "
+.article-link
+  @extend .hvr-wobble-to-top-right !optional
 
 
 
 main article
   border: solid 1px var(--border-color)
-  box-shadow: 5px 3px 1px var(--box-shadow-color)
-  border-radius: 2% 1% / 1% 3%
+  box-shadow: 3px 3px 1px var(--box-shadow-color)
+  /* border-radius: 2% 1% / 2% 1%
 
   padding: 1rem
 
@@ -445,8 +427,8 @@ img
 
   > ul
     border: dotted 1px var(--border-color)
-    border-radius: 15% 10% / 5% 20%
-    box-shadow: 5px 3px 1px var(--box-shadow-color)
+    // border-radius: 15% 10% / 5% 20%
+    box-shadow: 3px 3px 1px var(--box-shadow-color)
     padding: 1rem
 
 
@@ -478,7 +460,7 @@ figcaption
   text-align: center
   text-decoration: none
   border: solid 1px var(--button-border-color)
-  border-radius: 5%
+  // border-radius: 5%
   display: inline-block
   cursor: pointer
 
