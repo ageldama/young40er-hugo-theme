@@ -14,6 +14,19 @@
 		{{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
 		{{ $paginator := .Paginate (where $pages "Params.hidden" "ne" true) }}
 
+                <hr class="archive-ruler">
+
+                {{- $titles := "" -}}
+                {{- range $paginator.Pages -}}
+                {{- $title := .Title -}}
+                {{- $titles = add $titles $title -}}
+                {{- end -}}
+                {{- $emoji := partial "emojibyhash.html" (dict "input" $titles) -}}
+                <h1>
+                    {{ $emoji }}
+                    페이지 #{{ printf "%03d" $paginator.PageNumber }}
+                </h1>
+
                 {{ range $paginator.Pages }}
                 <ul class="article__list">
                     {{ if (ne .Params.hidden true) }}
@@ -43,6 +56,8 @@
                     {{ end }}
                 </ul>
 		{{ end }}
+
+                <hr class="archive-ruler">
 
 		{{ partial "paginator.html" . }}
 	    </main>

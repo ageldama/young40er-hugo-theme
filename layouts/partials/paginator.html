@@ -17,7 +17,7 @@
     {{ end }}
 
     <span class="posts-pagination-indicator" >
-        📃 {{ printf "%03d" $pag.PageNumber }}-페이지  ( 전체={{ printf "%03d" $pag.TotalPages }} )
+        📃 {{ $pag.PageNumber }} / {{ $pag.TotalPages }}
     </span>
 
     {{ if $pag.HasNext }}
