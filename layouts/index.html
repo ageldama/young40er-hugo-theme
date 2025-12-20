@@ -27,8 +27,8 @@
                     페이지 #{{ printf "%03d" $paginator.PageNumber }}
                 </h1>
 
-                {{ range $paginator.Pages }}
                 <ul class="article__list">
+                    {{ range $paginator.Pages }}
                     {{ if (ne .Params.hidden true) }}
                     <li>
                         <span class="meta">
@@ -54,8 +54,8 @@
                         </div>
                     </li>
                     {{ end }}
+		    {{ end }}
                 </ul>
-		{{ end }}
 
                 <hr class="archive-ruler">
 
