@@ -29,55 +29,73 @@ $monochrome_dgrey:	#808080
 $monochrome_darker_grey:	#404040
 $monochrome_black:	#000000
 
+
+@mixin light-mode
+  --bg-color: #{$bg_beige}
+
+  --text-color: #{$blackish_text}
+
+  --link-color: #{$redish_orange}
+  --link-visited-color: #{$redish_orange_visited}
+
+  --border-color: #{$redish_orange_border}
+  --box-shadow-color: #{$redish_orange_border}
+
+  --input-text-bg-color: white
+  --input-text-border-color: #{$redish_orange}
+  --input-text-text-disabled-color: #cccccc
+
+  --button-bg-color: #{$redish_orange}
+  --button-border-color: #{$redish_orange}
+  --button-text-color: white
+  --button-bg-disabled-color: #{$redish_orange_visited}
+
+  --site-title-bg-color: #{$monochrome_white}
+  --site-title-border-color: #{$monochrome_dgrey}
+  --site-title-box-shadow-color: #{$monochrome_darker_grey}
+
+  --dark-mode-btn-text: "🌻 light"
+
+
+@mixin dark-mode
+  --bg-color: #{$monochrome_black}
+
+  --text-color: #{$monochrome_lgrey}
+
+  --link-color: #{$monochrome_lgrey}
+  --link-visited-color: #{$monochrome_lgrey}
+
+  --border-color: #{$monochrome_dgrey}
+  --box-shadow-color: #{$monochrome_darker_grey}
+
+  --input-text-bg-color: #{$monochrome_black}
+  --input-text-border-color: #{$monochrome_darker_grey}
+  --input-text-text-disabled-color: #{$monochrome_darker_grey}
+
+  --button-bg-color: #{$monochrome_darker_grey}
+  --button-border-color: #{$monochrome_darker_grey}
+  --button-text-color: #{$monochrome_lgrey}
+  --button-bg-disabled-color: #{$monochrome_dgrey}
+
+  --site-title-bg-color: #{$monochrome_lgrey}
+  --site-title-border-color: #{$monochrome_dgrey}
+  --site-title-box-shadow-color: #{$monochrome_darker_grey}
+
+  --dark-mode-btn-text: "🌚 dark"
+
+
 \:root
-    color-scheme: light dark
-
-    --bg-color: #{$bg_beige}
-
-    --text-color: #{$blackish_text}
-
-    --link-color: #{$redish_orange}
-    --link-visited-color: #{$redish_orange_visited}
-
-    --border-color: #{$redish_orange_border}
-    --box-shadow-color: #{$redish_orange_border}
-
-    --input-text-bg-color: white
-    --input-text-border-color: #{$redish_orange}
-    --input-text-text-disabled-color: #cccccc
-
-    --button-bg-color: #{$redish_orange}
-    --button-border-color: #{$redish_orange}
-    --button-text-color: white
-    --button-bg-disabled-color: #{$redish_orange_visited}
-
-    --site-title-bg-color: #{$monochrome_white}
-    --site-title-border-color: #{$monochrome_dgrey}
-    --site-title-box-shadow-color: #{$monochrome_darker_grey}
+    @media (prefers-color-scheme: light)
+      @include light-mode
 
     @media (prefers-color-scheme: dark)
-      --bg-color: #{$monochrome_black}
+      @include dark-mode
 
-      --text-color: #{$monochrome_lgrey}
+    [data-theme="light"]
+      @include light-mode
 
-      --link-color: #{$monochrome_lgrey}
-      --link-visited-color: #{$monochrome_lgrey}
-
-      --border-color: #{$monochrome_dgrey}
-      --box-shadow-color: #{$monochrome_darker_grey}
-
-      --input-text-bg-color: #{$monochrome_black}
-      --input-text-border-color: #{$monochrome_darker_grey}
-      --input-text-text-disabled-color: #{$monochrome_darker_grey}
-
-      --button-bg-color: #{$monochrome_darker_grey}
-      --button-border-color: #{$monochrome_darker_grey}
-      --button-text-color: #{$monochrome_lgrey}
-      --button-bg-disabled-color: #{$monochrome_dgrey}
-
-      --site-title-bg-color: #{$monochrome_lgrey}
-      --site-title-border-color: #{$monochrome_dgrey}
-      --site-title-box-shadow-color: #{$monochrome_darker_grey}
+    [data-theme="dark"]
+      @include dark-mode
 
 
 
@@ -431,6 +449,11 @@ img
   @media (max-width: $mobile_width)
     // display: block;
     margin: 1rem
+
+  &::after
+    content: var(--dark-mode-btn-text)
+
+
 
 
 #TableOfContents
