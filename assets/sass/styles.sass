@@ -17,7 +17,8 @@ $redish_orange: #ff6719
 $redish_orange_visited: #dd6719
 $redish_orange_border: #e6e2d4
 
-$alien_green_0: #39a78e
+$alien_green_0:   #39a78e
+$alien_green_0_1: #20b77e
 $alien_green_1:	#2bdb6b
 $alien_green_2:	#18da3b
 $alien_green_3:	#09f018
@@ -77,24 +78,26 @@ $autumn_gold2:      #c0a35a
 
   --dark-mode-btn-text: "🌻 light"
 
+  --preview-bg-color: #{$autumn_gold}
+
 
 @mixin dark-mode
-  --bg-color: #{$monochrome_black}
+  --bg-color: #{$darker_green1}
 
   --text-color: #{$monochrome_lgrey}
 
-  --link-color: #{$monochrome_lgrey}
-  --link-visited-color: #{$monochrome_lgrey}
+  --link-color: #{$alien_green_0_1}
+  --link-visited-color: #{$alien_green_0}
 
-  --border-color: #{$monochrome_dgrey}
-  --box-shadow-color: #{$monochrome_darker_grey}
+  --border-color: #{$darker_green5}
+  --box-shadow-color: #{$darker_green5}
 
-  --input-text-bg-color: #{$monochrome_black}
-  --input-text-border-color: #{$monochrome_darker_grey}
+  --input-text-bg-color: #{$darker_green5}
+  --input-text-border-color: #{$monochrome_lgrey}
   --input-text-text-disabled-color: #{$monochrome_darker_grey}
 
-  --button-bg-color: #{$monochrome_darker_grey}
-  --button-border-color: #{$monochrome_darker_grey}
+  --button-bg-color: #{$darker_green5}
+  --button-border-color: #{darker_green3}
   --button-text-color: #{$monochrome_lgrey}
   --button-bg-disabled-color: #{$monochrome_dgrey}
 
@@ -103,6 +106,8 @@ $autumn_gold2:      #c0a35a
   --site-title-box-shadow-color: #{$monochrome_darker_grey}
 
   --dark-mode-btn-text: "🌚 dark"
+
+  --preview-bg-color: #{$darker_green9}
 
 
 \:root
@@ -552,7 +557,7 @@ hr.archive-ruler
 
 
 .short-description
-  background-color: var(--border-color)
+  background-color: var(--preview-bg-color)
 
   &::before
     content: "⁝ "
