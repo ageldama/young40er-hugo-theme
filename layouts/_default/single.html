@@ -1,7 +1,9 @@
 {{ define "main" }}
 <main>
     {{ partial "prevnext.html" . }}
-
+    
+    <hr class="archive-ruler">
+    
     {{ .TableOfContents }}
 
     <article>
@@ -51,6 +53,8 @@
 	</div>
     </article>
 
+    <hr class="archive-ruler">
+    
     {{ partial "prevnext.html" . }}
 </main>
 {{ end }}

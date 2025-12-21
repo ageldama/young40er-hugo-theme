@@ -1,18 +1,25 @@
 {{ define "main" }}
+
+<hr class="archive-ruler">
+
 {{ if isset .Data "Term" }}
 <h1>Entries tagged - "{{ .Data.Term }}"</h1>
 {{ else }}
-<h1 class="page-title">All articles</h1>
+<h1 class="page-title">🎊 모든 포스팅 / All articles</h1>
 {{ end }}
 
-<ul class="posts">
-	{{- range .Data.Pages -}}
-		{{- if (not (in (.Site.Params.excludedTypes | default (slice "page")) .Type)) -}}
-		<li class="post">
-                    {{- $emoji := partial "emojibyhash.html" (dict "input" .Title) -}}
-                    <a href="{{ .RelPermalink }}">{{ $emoji }} {{.Title}}</a> <span class="meta">//l{{ dateFormat "02 Jan, 2006" .Date }}{{ if .Draft }} <span class="draft-label">[DRAFT]</span> {{ end }}</span>
-                </li>
-		{{- end -}}
-	{{- end -}}
-</ul>
+<ol class="posts">
+    {{- range .Data.Pages -}}
+    {{- if (not (in (.Site.Params.excludedTypes | default (slice "page")) .Type)) -}}
+    <li class="post">
+        {{ partial "article-date-in-list.html" . }}
+        {{ partial "article-link.html" . }}
+        {{ partial "list-preview.html" . }}
+    </li>
+    {{- end -}}
+    {{- end -}}
+</ol>
+
+<hr class="archive-ruler">
+
 {{ end }}

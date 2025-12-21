@@ -1,0 +1,11 @@
+<div class="preview">
+    {{ if isset .Params "description" }}
+    <span class="short-description">
+        {{ .Description }}
+    </span>
+    {{ else }}
+    <span class="preview-content">
+        {{ strings.Truncate 100 "..." (.Content | plainify) }}
+    </span>
+    {{ end }}
+</div>

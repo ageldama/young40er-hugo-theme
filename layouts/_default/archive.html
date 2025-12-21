@@ -2,10 +2,28 @@
 
 <main class="list">
 
+    {{- if hasPrefix .Path "/posts/archive" -}}
+    <div>
+        <h1 style="text-align: center; border-bottom: solid red 3px;">
+            ⚠️ 페이지 이사갔습니다: <a href="/archive"><b>/archive 🚚 </b></a>
+        </h1>
+
+        <h3 style="text-align: center;">
+            <b>
+                새 URL으로 변경해주세요: <a href="/archive">/archive</a>.
+            </b>
+            <br>
+            <b>
+                Please update the link to <a href="/archive">/archive</a>.
+            </b>
+        </h3>
+    </div>
+    {{- end -}}
+
 <section class="section is-fullheight sec-toc">
 
-    <span class="toc-link"><a href="#sec-categories">Categories😺({{ len .Site.Taxonomies.categories }}개)</a></span>
-    <span class="toc-link"><a href="#sec-tags">Tags🏷️({{ len .Site.Taxonomies.tags }}개)</a></span>
+    <span class="toc-link"><a href="/categories">Categories😺({{ len .Site.Taxonomies.categories }}개)</a></span>
+    <span class="toc-link"><a href="/tags">Tags🏷️({{ len .Site.Taxonomies.tags }}개)</a></span>
 
     {{ $type := .Type }}
     {{ $.Scratch.Set "count" 1 }}
@@ -56,22 +74,10 @@
           <ul class="article__list">
               {{ range (where .Pages "Type" $type) }}
               {{ if (ne .Params.hidden true) }}
-              <li>{{ .Date.Format "01월02일" }}
-                  {{- $emoji := partial "emojibyhash.html" (dict "input" .Title) -}}
-                  <a class="article-link" href="{{ .RelPermalink }}">
-                      {{ $emoji }} {{ .Title }}
-                  </a>
-                  <div class="preview">
-                      {{ if isset .Params "description" }}
-		      <span class="short-description">
-                          {{ .Description }}
-                      </span>
-                      {{ else }}
-                      <span class="preview-content">
-                          {{ strings.Truncate 100 "..." (.Content | plainify) }}
-                      </span>
-                      {{ end }}
-                  </div>
+              <li>
+                  {{ partial "article-date-in-list" . }}
+                  {{ partial "article-link.html" . }}
+                  {{ partial "list-preview.html" . }}
               </li>
               {{ end }}
               {{ end }}
@@ -81,10 +87,13 @@
           {{ end }}
 </section>
 
+{{/*
 <hr class="archive-ruler">
 
 <section class="section is-fullheight sec-categories">
-    <h1 id="sec-categories" class="page-title">Categories😺({{ len .Site.Taxonomies.categories }}) <a href="#sec-categories">#</a></h1>
+    <h1 id="sec-categories" class="page-title">
+        Categories😺({{ len .Site.Taxonomies.categories }}) <a href="#sec-categories">#</a>
+    </h1>
     <ul class="tags">
 	{{range $name, $taxonomy := .Site.Taxonomies.categories}} {{ $cnt := .Count }}
 	  {{ with $.Site.GetPage (printf "/categories/%s" $name) }}
@@ -100,7 +109,9 @@
 <hr class="archive-ruler">
 
 <section class="section is-fullheight sec-tags">
-    <h1 id="sec-tags" class="page-title">Tags🏷️({{ len .Site.Taxonomies.tags }}) <a href="#sec-tags">#</a></h1>
+    <h1 id="sec-tags" class="page-title">
+        Tags🏷️({{ len .Site.Taxonomies.tags }}) <a href="#sec-tags">#</a>
+    </h1>
     <ul class="tags">
 	{{range $name, $taxonomy := .Site.Taxonomies.tags}} {{ $cnt := .Count }}
 	  {{ with $.Site.GetPage (printf "/tags/%s" $name) }}
@@ -112,6 +123,7 @@
           {{end}}
     </ul>
 </section>
+*/}}
 
 <hr class="archive-ruler">
 

@@ -1,20 +1,50 @@
 {{ define "main" }}
-<h1 class="page-title">All tags🏷️</h1>
 
-{{ $biggest := 1 }}
-{{ $smallest := 1 }}
-{{ $max := 3 }}
-{{ $min := 1 }}
-{{ $size := $min }}
+{{ .Scratch.Set "taxonomy" "" }}
+{{ .Scratch.Set "taxonomyType" "" }}
+<h1 class="page-title">
+    {{ if eq .Path "/categories" }}
+    Categories😺
+    {{-   .Scratch.Set "taxonomy" .Site.Taxonomies.categories -}}
+    {{-   .Scratch.Set "taxonomyType" "categories" -}}
+    {{ else }}
+    Tags🏷️
+    {{-   .Scratch.Set "taxonomy" .Site.Taxonomies.tags -}}
+    {{-   .Scratch.Set "taxonomyType" "tags" -}}
+    {{ end }}
+    {{- $taxonomy := .Scratch.Get "taxonomy" -}}
+    ({{- len $taxonomy -}})
+</h1>
 
-{{ $data := .Data }}
-<div class="tag-cloud">
-	<ul class="tags">
-		{{ range $key, $value := .Data.Terms.ByCount }}
-		{{ $size := (add (mul (div $value.Count $biggest) (sub $max $min)) $min) }}
-		{{ $size := (cond (eq $biggest $smallest) $min $size) }}
-		<li>#<a style="font-size: {{ $size }}rem;" href="{{ $.Site.LanguagePrefix | absURL }}{{ $data.Plural }}/{{ $value.Name | urlize }}/">{{ $value.Name }}</a></li>
-		{{ end }}
-	</ul>
-</div>
+{{- $taxonomyType := .Scratch.Get "taxonomyType" -}}
+{{- $taxonomyIcon := "" -}}
+{{- if eq $taxonomyType "categories" -}}
+{{- $taxonomyIcon = "😺" -}}
+{{- else -}}
+{{- $taxonomyIcon = "🏷️" -}}
+{{- end -}}
+
+<hr class="archive-ruler">
+
+<section class="section is-fullheight sec-categories">
+    {{/*
+    <h1 id="sec-{{ $taxonomyType }}" class="page-title">
+        Categories😺({{ len .Site.Taxonomies.categories }}) <a href="#sec-categories">#</a>
+    </h1>
+    */}}
+    <ul class="{{ $taxonomyType }}">
+	{{ range $name, $t := $taxonomy }}
+        {{   $cnt := .Count }}
+	{{   with $.Site.GetPage (printf "/%s/%s" $taxonomyType $name) }}
+        <li class="tagbutton">
+	    <a href={{ .RelPermalink }} title="All pages with {{$taxonomyType}} <i>{{$name}}</i>">{{$taxonomyIcon}} {{$name}}</a>
+	    <sup>{{$cnt}}</sup>
+        </li>
+        {{   end }}
+        {{ end }}
+    </ul>
+</section>
+
+<hr class="archive-ruler">
+
 {{ end }}
