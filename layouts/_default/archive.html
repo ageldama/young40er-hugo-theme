@@ -20,9 +20,9 @@
     </div>
     {{- end -}}
 
-<section class="section is-fullheight sec-toc">
-
-    <span class="toc-link"><a href="/categories">Categories😺({{ len .Site.Taxonomies.categories }}개)</a></span>
+    <section class="section is-fullheight sec-toc">
+        <span class="toc-link"><a href="/series">Series📚({{ len .Site.Taxonomies.series }}개)</a></span>
+        <span class="toc-link"><a href="/categories">Categories😺({{ len .Site.Taxonomies.categories }}개)</a></span>
     <span class="toc-link"><a href="/tags">Tags🏷️({{ len .Site.Taxonomies.tags }}개)</a></span>
 
     {{ $type := .Type }}

@@ -7,6 +7,10 @@
     Categories😺
     {{-   .Scratch.Set "taxonomy" .Site.Taxonomies.categories -}}
     {{-   .Scratch.Set "taxonomyType" "categories" -}}
+    {{ else if eq .Path "/series" }}
+    Series📚
+    {{-   .Scratch.Set "taxonomy" .Site.Taxonomies.series -}}
+    {{-   .Scratch.Set "taxonomyType" "series" -}}
     {{ else }}
     Tags🏷️
     {{-   .Scratch.Set "taxonomy" .Site.Taxonomies.tags -}}
@@ -20,6 +24,8 @@
 {{- $taxonomyIcon := "" -}}
 {{- if eq $taxonomyType "categories" -}}
 {{- $taxonomyIcon = "😺" -}}
+{{- else if eq $taxonomyType "series" -}}
+{{- $taxonomyIcon = "📚" -}}
 {{- else -}}
 {{- $taxonomyIcon = "🏷️" -}}
 {{- end -}}

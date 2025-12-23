@@ -35,11 +35,15 @@
 	    {{ .Content }}
 	</section>
 
+
 	<div class="post-tags">
 	    {{ if ne .Type "page" }}
 	    {{ if gt .Params.tags 0 }}
 	    <nav class="nav tags">
 		<ul class="tags">
+                    {{ range .Params.series }}
+	            <li style="display: inline">📚 <a href="{{ "/series/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+                    {{ end }}
                     {{ range .Params.categories }}
 		    <li style="display: inline">😺 <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
                     {{ end }}

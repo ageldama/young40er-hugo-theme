@@ -9,6 +9,10 @@
 {{-   $taxonomyType = "categories" -}}
 {{-   $taxonomyLabelSingular = "Category" -}}
 {{-   $taxonomyIcon = "😺" -}}
+{{- else if hasPrefix .Path "/series/" }}
+{{-   $taxonomyType = "series" -}}
+{{-   $taxonomyLabelSingular = "Series" -}}
+{{-   $taxonomyIcon = "📚" -}}
 {{ else }}
 {{-   $taxonomyType = "tags" -}}
 {{-   $taxonomyLabelSingular = "Tag" -}}
