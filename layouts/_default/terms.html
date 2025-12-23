@@ -22,6 +22,8 @@
     ({{- len $taxonomy -}})
 </h1>
 
+<hr class="archive-ruler">
+
 {{- $taxonomyType := .Scratch.Get "taxonomyType" -}}
 {{- $taxonomyIcon := "" -}}
 {{- if eq $taxonomyType "categories" -}}
@@ -31,8 +33,6 @@
 {{- else -}}
 {{- $taxonomyIcon = "🏷️" -}}
 {{- end -}}
-
-<hr class="archive-ruler">
 
 <section class="section is-fullheight sec-categories">
     {{/*
