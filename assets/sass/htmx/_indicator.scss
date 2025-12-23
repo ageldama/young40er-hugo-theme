@@ -1,27 +1,7 @@
 // https://dev.to/amal/global-progress-bar-for-htmx-50fa
 
 
-@mixin keyframes($animation-name) {
-  @-webkit-keyframes #{$animation-name} {
-    @content;
-  }
-  @keyframes #{$animation-name} {
-    @content;
-  }
-}
-
-
-@mixin animation($str) {
-  -webkit-animation: #{$str};
-  animation: #{$str};
-}
-
-@mixin animation-delay($str) {
-  -webkit-animation-delay: #{$str};
-  animation-delay: #{$str};
-}
-
-
+@import "./helper";
 
 
 .htmx-indicator {
