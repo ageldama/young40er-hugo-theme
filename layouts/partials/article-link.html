@@ -1,0 +1,4 @@
+{{- $emoji := partial "emojibyhash.html" (dict "input" .Title) -}}
+<a class="article-link" href="{{ .RelPermalink }}">
+    {{ $emoji }} {{ .Title }}
+</a>

@@ -12,8 +12,10 @@
     <a href="{{ $pag.First.URL }}" class="button-link posts-pagination-btn posts-pagination-last" aria-label="Last">{{$lbl_last}}</a>
     <a href="{{ $pag.Prev.URL }}" class="button-link posts-pagination-btn posts-pagination-newer" aria-label="Newer">{{$lbl_newer}}</a>
     {{ else }}
+    {{/*
     <a class="button-link posts-pagination-btn posts-pagination-last disabled">{{$lbl_last}}</a>
     <a class="button-link posts-pagination-btn posts-pagination-newer disabled">{{$lbl_newer}}</a>
+    */}}
     {{ end }}
 
     <span class="posts-pagination-indicator" >
@@ -24,8 +26,10 @@
     <a href="{{ $pag.Next.URL }}" class="button-link posts-pagination-btn posts-pagination-older" aria-label="Older">{{$lbl_older}}</a>
     <a href="{{ $pag.Last.URL }}" class="button-link posts-pagination-btn posts-pagination-first" aria-label="First">{{$lbl_first}}</a>
     {{ else }}
+    {{/*
     <a class="button-link posts-pagination-btn posts-pagination-older disabled">{{$lbl_older}}</a>
     <a class="button-link posts-pagination-btn posts-pagination-first disabled">{{$lbl_first}}</a>
+    */}}
     {{ end }}
 </nav>
 

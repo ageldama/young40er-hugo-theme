@@ -1,35 +1,39 @@
 {{ define "main" }}
-{{ if isset .Data "Term" }}
-<h1>📔 Entries "<em>{{ .Data.Term }}</em>" ({{ len .Data.Pages }}건)</h1>
+
+<hr class="archive-ruler">
+
+{{- $taxonomyType := "" -}}
+{{- $taxonomyLabelSingular := "" -}}
+{{- $taxonomyIcon := "" -}}
+{{ if hasPrefix .Path "/categories/" }}
+{{-   $taxonomyType = "categories" -}}
+{{-   $taxonomyLabelSingular = "Category" -}}
+{{-   $taxonomyIcon = "😺" -}}
 {{ else }}
-<h1 class="page-title">All articles</h1>
+{{-   $taxonomyType = "tags" -}}
+{{-   $taxonomyLabelSingular = "Tag" -}}
+{{-   $taxonomyIcon = "🏷️" -}}
+{{ end }}
+
+{{ if isset .Data "Term" }}
+<h1>{{$taxonomyLabelSingular}}{{$taxonomyIcon}}
+    "<em>{{ .Data.Term }}</em>" ({{ len .Data.Pages }}건)</h1>
+{{ else }}
+<h1 class="page-title">All {{$taxonomyType}}{{$taxonomyIcon}}</h1>
 {{ end }}
 
 <ol class="posts">
     {{- range .Data.Pages -}}
     {{-   if (not (in (.Site.Params.excludedTypes | default (slice "page")) .Type)) -}}
     <li class="post">
-        {{/*<span class="meta">[{{ dateFormat "2006-01-02" .Date }}]{{ if .Draft }} <span class="draft-label">[DRAFT]</span> {{ end }}</span> */}}
-        <span class="meta">
-            <time datetime="{{ .Date.Format "2006-01-02" }}" pubdate>
-                {{ dateFormat "2006-01-02" .Date }}
-            </time>
-        </span>
-	<a href="{{ .RelPermalink }}" class="article-link" >{{.Title}}</a>
-        <br>
-        <div class="preview">
-            {{ if isset .Params "description" }}
-	    <span class="short-description">
-                {{ .Description }}
-            </span>
-            {{ else }}
-            <span class="preview-content">
-                {{ strings.Truncate 100 "..." (.Content | plainify) }}
-            </span>
-            {{ end }}
-        </div>
+        {{ partial "article-date-in-list.html" . }}
+        {{ partial "article-link.html" . }}
+        {{ partial "list-preview.html" . }}
     </li>
     {{-   end -}}
     {{- end -}}
 </ol>
+
+<hr class="archive-ruler">
+
 {{ end }}

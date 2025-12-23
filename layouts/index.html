@@ -31,27 +31,9 @@
                     {{ range $paginator.Pages }}
                     {{ if (ne .Params.hidden true) }}
                     <li>
-                        <span class="meta">
-                            <time datetime="{{ .Date.Format "2006-01-02" }}" pubdate>
-                                {{ dateFormat "2006-01-02" .Date }}
-                            </time>
-                        </span>
-
-                        {{- $emoji := partial "emojibyhash.html" (dict "input" .Title) -}}
-                        <a class="article-link" href="{{ .RelPermalink }}">
-                            {{ $emoji }} {{ .Title }}
-                        </a>
-                        <div class="preview">
-                            {{ if isset .Params "description" }}
-		            <span class="short-description">
-                                {{ .Description }}
-                            </span>
-                            {{ else }}
-                            <span class="preview-content">
-                                {{ strings.Truncate 100 "..." (.Content | plainify) }}
-                            </span>
-                            {{ end }}
-                        </div>
+                        {{ partial "article-date-in-list.html" . }}
+                        {{ partial "article-link.html" . }}
+                        {{ partial "list-preview.html" . }}
                     </li>
                     {{ end }}
 		    {{ end }}
