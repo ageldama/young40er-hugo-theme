@@ -80,6 +80,9 @@ $autumn_gold2:      #c0a35a
 
   --preview-bg-color: #{$autumn_gold}
 
+  --progress-bar-bg-color: #{$monochrome_lgrey}
+  --progress-bar-fg-color: #{$redish_orange}
+
 
 @mixin dark-mode
   --bg-color: #{$darker_green1}
@@ -109,6 +112,9 @@ $autumn_gold2:      #c0a35a
 
   --preview-bg-color: #{$darker_green9}
 
+  --progress-bar-bg-color: #{$monochrome_darker_grey}
+  --progress-bar-fg-color: #{$redish_orange}
+
 
 \:root
     @media (prefers-color-scheme: light)
@@ -130,13 +136,22 @@ $autumn_gold2:      #c0a35a
 
 
 body
-  padding: 1rem
+  //padding: 1rem
   font-family: $font_default
 
   background-color: var(--bg-color)
   color: var(--text-color)
   // font-optical-sizing: auto;
 
+  margin: 0em;
+
+.container
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding-left: 1em
+  padding-right: 1em
 
 
 a
@@ -572,6 +587,4 @@ hr.archive-ruler
 
 
 
-
-
-
+@import "./htmx/indicator"

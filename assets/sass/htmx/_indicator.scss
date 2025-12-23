@@ -1,0 +1,119 @@
+// https://dev.to/amal/global-progress-bar-for-htmx-50fa
+
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  animation: #{$str};
+}
+
+@mixin animation-delay($str) {
+  -webkit-animation-delay: #{$str};
+  animation-delay: #{$str};
+}
+
+
+
+
+.htmx-indicator {
+    margin: 0em;
+    padding: 0em;
+
+    display: none;
+
+    background-color: var(--progress-bar-bg-color);
+
+    height: 1em;
+
+    position: fixed;
+    top: 0;
+    z-index: 108;
+    //height: 4px;
+    width: 100%;
+    //border-radius: 2px;
+    background-clip: padding-box;
+    overflow: hidden;
+}
+
+
+.htmx-indicator .spinner {
+    background-color: var(--progress-bar-fg-color);
+}
+
+.htmx-indicator .spinner:before {
+    content: '';
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    will-change: left, right;
+    @include animation(
+        htmx-indicator-anim 2.1s
+        cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite);
+}
+
+.htmx-indicator .spinner:after {
+    content: '';
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    will-change: left, right;
+    @include animation(htmx-indicator-anim-short 2.1s
+                       cubic-bezier(0.165, 0.84, 0.44, 1) infinite);
+    @include animation-delay(1.15s);
+}
+
+
+.htmx-request .htmx-indicator {
+    display: inline;
+}
+
+.htmx-request.htmx-indicator {
+    display: inline;
+}
+
+
+
+@include keyframes(htmx-indicator-anim) {
+    0% {
+        left: -35%;
+        right: 100%;
+    }
+    60% {
+        left: 100%;
+        right: -90%;
+    }
+    100% {
+        left: 100%;
+        right: -90%;
+    }
+}
+
+
+@include keyframes(htmx-indicator-anim-short) {
+    0% {
+        left: -200%;
+        right: 100%;
+    }
+    60% {
+        left: 107%;
+        right: -8%;
+    }
+    100% {
+        left: 107%;
+        right: -8%;
+    }
+}
+
