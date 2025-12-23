@@ -2,6 +2,8 @@
 
 {{ partial "archive-toc.html" . }}
 
+<hr class="archive-ruler">
+
 {{ .Scratch.Set "taxonomy" "" }}
 {{ .Scratch.Set "taxonomyType" "" }}
 <h1 class="page-title">
@@ -22,7 +24,7 @@
     ({{- len $taxonomy -}})
 </h1>
 
-<hr class="archive-ruler">
+
 
 {{- $taxonomyType := .Scratch.Get "taxonomyType" -}}
 {{- $taxonomyIcon := "" -}}
