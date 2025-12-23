@@ -9,12 +9,13 @@
     to { opacity: 0; }
 }
 
+
 @include keyframes(slide-from-right) {
-    from { transform: translateX(90px); }
+    //from { transform: translateX(90px); }
 }
 
 @include keyframes(slide-to-left) {
-    to { transform: translateX(-90px); }
+    //to { transform: translateX(-90px); }
 }
 
 
