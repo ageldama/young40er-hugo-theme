@@ -1,5 +1,7 @@
 {{ define "main" }}
 
+{{ partial "archive-toc.html" . }}
+
 <hr class="archive-ruler">
 
 {{- $taxonomyType := "" -}}
@@ -21,7 +23,8 @@
 
 {{ if isset .Data "Term" }}
 <h1>{{$taxonomyLabelSingular}}{{$taxonomyIcon}}
-    "<em>{{ .Data.Term }}</em>" ({{ len .Data.Pages }}건)</h1>
+    "<em>{{ .Data.Term }}</em>" ({{ len .Data.Pages }}건)
+</h1>
 {{ else }}
 <h1 class="page-title">All {{$taxonomyType}}{{$taxonomyIcon}}</h1>
 {{ end }}

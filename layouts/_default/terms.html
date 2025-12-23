@@ -1,5 +1,7 @@
 {{ define "main" }}
 
+{{ partial "archive-toc.html" . }}
+
 {{ .Scratch.Set "taxonomy" "" }}
 {{ .Scratch.Set "taxonomyType" "" }}
 <h1 class="page-title">

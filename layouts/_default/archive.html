@@ -20,35 +20,7 @@
     </div>
     {{- end -}}
 
-    <section class="section is-fullheight sec-toc">
-        <span class="toc-link"><a href="/series">Series📚({{ len .Site.Taxonomies.series }}개)</a></span>
-        <span class="toc-link"><a href="/categories">Categories😺({{ len .Site.Taxonomies.categories }}개)</a></span>
-    <span class="toc-link"><a href="/tags">Tags🏷️({{ len .Site.Taxonomies.tags }}개)</a></span>
-
-    {{ $type := .Type }}
-    {{ $.Scratch.Set "count" 1 }}
-    {{ $totalpages := 0 }}
-
-    {{ range (.Site.RegularPages.GroupByDate "2006") }}
-    {{   if and (gt .Key 1) (gt (where .Pages "Type" $type) 0) }}
-
-    {{     $.Scratch.Set "pages" (.Len) }}
-    {{     range (where .Pages "Type" $type) }}
-    {{       if (eq ($.Scratch.Get "count") 1) }}
-    {{         $.Scratch.Set "count" 0 }}
-    {{         $pagecount := $.Scratch.Get "pages" }}
-    <span class="toc-link"><a href="#year-{{ .Date.Format "2006" }}">{{ .Date.Format "2006" }}년({{ $pagecount }}건)</a></span>
-    {{         $totalpages = add $totalpages $pagecount }}
-    {{       end }}
-    {{     end }}
-    {{     $.Scratch.Set "count" 1 }}
-
-    {{   end }}
-    {{ end }}
-
-    <span class="toc-link">전체🍵({{ $totalpages }}건)</span>
-
-</section>
+    {{ partial "archive-toc.html" . }}
 
 <hr class="archive-ruler">
 
