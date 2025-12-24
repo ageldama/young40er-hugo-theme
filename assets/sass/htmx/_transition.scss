@@ -2,30 +2,35 @@
 
 
 @include keyframes(fade-in) {
-    from { opacity: 0; }
+    from {
+        opacity: 0;
+        // filter: gray; /* IE6-9 */
+        // -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+    }
 }
 
 @include keyframes(fade-out) {
-    to { opacity: 0; }
+    to {
+        opacity: 0;
+        // -webkit-filter: grayscale(0%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+    }
 }
 
 
 @include keyframes(slide-from-right) {
-    //from { transform: translateX(90px); }
+    from { transform: translateX(90px); }
 }
 
 @include keyframes(slide-to-left) {
-    //to { transform: translateX(-90px); }
+    to { transform: translateX(-90px); }
 }
 
 
 ::view-transition-old(slide-it) {
-    @include animation("180ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
-                       600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left");
+    @include animation("180ms cubic-bezier(0.4, 0, 1, 1) both fade-out /*, 600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left*/");
 }
 ::view-transition-new(slide-it) {
-    @include animation("420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
-                       600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right");
+    @include animation("420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in /*, 600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right*/");
 }
 
 
