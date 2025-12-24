@@ -51,7 +51,7 @@
 
     sortListByData(document.querySelector('ul.terms'), 'lastModified')
   */
- function sortListByData(elList, descDataKey, valDataKey, valDataTypeKey) {
+ function sortListByData(elList, elControl, descDataKey, valDataKey, valDataTypeKey) {
      const cmpFns = {
          lexical: function(desc, a, b){
              let res = String(a).localeCompare(String(b));
@@ -71,8 +71,8 @@
      };
 
      //
-     const desc = 'true' === String(elList.dataset[descDataKey]);
-     const cmpFn = cmpFns[elList.dataset[valDataTypeKey]];
+     const desc = 'true' === String(elControl.dataset[descDataKey]);
+     const cmpFn = cmpFns[elControl.dataset[valDataTypeKey]];
 
      Array.from(elList.getElementsByTagName("LI"))
           .sort((a, b) => cmpFn(desc, a.dataset[valDataKey], b.dataset[valDataKey]))
@@ -80,13 +80,15 @@
  }
 
  function doSortTerms(){
-     const el = document.querySelector('ul.terms');
-     const by = String(el.dataset['sortBy']);
-     sortListByData(el, 'descOrder', by, by + 'Type');
+     const elList = document.querySelector('ul.terms');
+     const elControl = document.querySelector('.sort-terms-control');
+     const by = String(elControl.dataset['sortBy']);
+     sortListByData(elList, elControl, 'descOrder', by, by + 'Type');
+     applyToSortOrderIndicator(elControl);
  }
 
  function sortTermsBy(by){
-     const el = document.querySelector('ul.terms');
+     const el = document.querySelector('.sort-terms-control');
      const origSortBy = String(el.dataset['sortBy']);
      el.dataset['sortBy'] = by;
      if (origSortBy === String(by)){
@@ -96,7 +98,7 @@
  }
 
  function toggleDesc(){
-     const el = document.querySelector('ul.terms');
+     const el = document.querySelector('.sort-terms-control');
      if(String(el.dataset['descOrder']) === 'true'){
          el.dataset['descOrder'] = 'false';
      }else{
@@ -104,24 +106,59 @@
      }
  }
 
+ function applyToSortOrderIndicator(elControl){
+     // hide all
+     document.querySelectorAll('.sort-order-indicator').forEach(i => i.style.display='none');
+
+     // select one
+     const kebabize = str => {
+         return str.split('').map((letter, idx) => {
+             return letter.toUpperCase() === letter
+                  ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
+                  : letter;
+         }).join('');
+     }
+
+     const sortBy = kebabize(String(elControl.dataset['sortBy']));
+     const desc = String(elControl.dataset['descOrder']) === 'true';
+     const selector = ".sort-terms-btn.by-" + sortBy + " > .sort-order-indicator." + (desc ? "desc" : "asc");
+
+     document.querySelectorAll(selector).forEach(el => el.style.display = 'inline');
+ }
+
+
 </script>
 
 
-<button type="button" onclick="sortTermsBy('term')">by-name</button>
+<span class="sort-terms-control"
+      data-desc-order="true"
+      data-sort-by="count"
+      data-term-type="lexical"
+      data-count-type="numeric"
+      data-last-modified-type="numeric" >
+    <button type="button" class="sort-terms-btn by-term" onclick="sortTermsBy('term')">
+        by-name
+        <span class="sort-order-indicator asc">🔼</span>
+        <span class="sort-order-indicator desc">🔽</span>
+    </button>
 
-<button type="button" onclick="sortTermsBy('count')">by-count</button>
+    <button type="button" class="sort-terms-btn by-count" onclick="sortTermsBy('count')">
+        by-count
+        <span class="sort-order-indicator asc">🔼</span>
+        <span class="sort-order-indicator desc" style="display:inline;">🔽</span>
+    </button>
 
-<button type="button" onclick="sortTermsBy('lastModified')">by-last-modified</button>
+    <button type="button" class="sort-terms-btn by-last-modified" onclick="sortTermsBy('lastModified')">
+        by-last-modified
+        <span class="sort-order-indicator asc">🔼</span>
+        <span class="sort-order-indicator desc">🔽</span>
+    </button>
+</span>
 
 
 <section class="section is-fullheight terms">
-    <ul class="{{ $taxonomyType }} terms"
-        data-desc-order="true"
-        data-sort-by="term"
-        data-term-type="lexical"
-        data-count-type="numeric"
-        data-last-modified-type="numeric" >
-	{{ range (sort $txs "Count" "desc") }}
+    <ul class="{{ $taxonomyType }} terms">
+ 	{{ range (sort $txs "Count" "desc") }}
         <li class="tagbutton"
             data-term="{{.Term}}"
             data-count="{{.Count}}"
