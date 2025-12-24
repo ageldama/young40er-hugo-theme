@@ -1,0 +1,6 @@
+{{- $txs := slice -}}
+{{- range .Terms -}}
+{{-   $tx := dict "Term" .Name "Link" .RelPermalink "Count" (len .Pages) -}}
+{{-   $txs = append $txs (slice $tx) -}}
+{{- end -}}
+{{- return $txs -}}

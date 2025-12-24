@@ -35,20 +35,25 @@
 	    {{ .Content }}
 	</section>
 
+        {{- $tags := partial "post-taxonomy.html" (dict "Page" . "Terms" (.Page.GetTerms "tags")) -}}
+        {{- $series := partial "post-taxonomy.html" (dict "Page" . "Terms" (.Page.GetTerms "series")) -}}
 
 	<div class="post-tags">
 	    {{ if ne .Type "page" }}
 	    {{ if gt .Params.tags 0 }}
 	    <nav class="nav tags">
 		<ul class="tags">
-                    {{ range .Params.series }}
-	            <li style="display: inline">📚 <a href="{{ "/series/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
-                    {{ end }}
-                    {{ range .Params.categories }}
-		    <li style="display: inline">😺 <a href="{{ "/categories/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
-                    {{ end }}
-		    {{ range .Params.tags }}
-		    <li style="display: inline">🏷️ <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+		    {{ range (sort $series "Count" "desc") }}
+		    <li class="tagbutton-inline">
+                        📚 <a href="{{ .Link  }}">{{ .Term }}</a>
+                        <sup>{{ .Count }}</sup>
+                    </li>
+		    {{ end }}
+		    {{ range (sort $tags "Count" "desc") }}
+		    <li class="tagbutton-inline">
+                        🏷️ <a href="{{ .Link  }}">{{ .Term }}</a>
+                        <sup>{{ .Count }}</sup>
+                    </li>
 		    {{ end }}
 		</ul>
 	    </nav>
@@ -58,7 +63,7 @@
     </article>
 
     <hr class="archive-ruler">
-    
+
     {{ partial "prevnext.html" . }}
 </main>
 {{ end }}

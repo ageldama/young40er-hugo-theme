@@ -9,16 +9,16 @@
 <h1 class="page-title">
     {{ if eq .Path "/categories" }}
     Categories😺
-    {{-   .Scratch.Set "taxonomy" .Site.Taxonomies.categories -}}
-    {{-   .Scratch.Set "taxonomyType" "categories" -}}
+    {{-  .Scratch.Set "taxonomy" .Site.Taxonomies.categories -}}
+    {{-  .Scratch.Set "taxonomyType" "categories" -}}
     {{ else if eq .Path "/series" }}
     Series📚
-    {{-   .Scratch.Set "taxonomy" .Site.Taxonomies.series -}}
-    {{-   .Scratch.Set "taxonomyType" "series" -}}
+    {{-  .Scratch.Set "taxonomy" .Site.Taxonomies.series -}}
+    {{-  .Scratch.Set "taxonomyType" "series" -}}
     {{ else }}
     Tags🏷️
-    {{-   .Scratch.Set "taxonomy" .Site.Taxonomies.tags -}}
-    {{-   .Scratch.Set "taxonomyType" "tags" -}}
+    {{-  .Scratch.Set "taxonomy" .Site.Taxonomies.tags -}}
+    {{-  .Scratch.Set "taxonomyType" "tags" -}}
     {{ end }}
     {{- $taxonomy := .Scratch.Get "taxonomy" -}}
     ({{- len $taxonomy -}})
@@ -27,28 +27,36 @@
 {{- $taxonomyType := .Scratch.Get "taxonomyType" -}}
 {{- $taxonomyIcon := "" -}}
 {{- if eq $taxonomyType "categories" -}}
-{{- $taxonomyIcon = "😺" -}}
+{{-   $taxonomyIcon = "😺" -}}
 {{- else if eq $taxonomyType "series" -}}
-{{- $taxonomyIcon = "📚" -}}
+{{-   $taxonomyIcon = "📚" -}}
 {{- else -}}
-{{- $taxonomyIcon = "🏷️" -}}
+{{-   $taxonomyIcon = "🏷️" -}}
 {{- end -}}
 
-<section class="section is-fullheight sec-categories">
-    {{/*
-    <h1 id="sec-{{ $taxonomyType }}" class="page-title">
-        Categories😺({{ len .Site.Taxonomies.categories }}) <a href="#sec-categories">#</a>
-    </h1>
-    */}}
-    <ul class="{{ $taxonomyType }}">
-	{{ range $name, $t := $taxonomy }}
-        {{   $cnt := .Count }}
-	{{   with $.Site.GetPage (printf "/%s/%s" $taxonomyType $name) }}
-        <li class="tagbutton">
-	    <a href={{ .RelPermalink }} title="All pages with {{$taxonomyType}} <i>{{$name}}</i>">{{$taxonomyIcon}} {{$name}}</a>
-	    <sup>{{$cnt}}</sup>
+{{- $txs := slice -}}
+{{- range $name, $t := $taxonomy -}}
+{{-   with $.Site.GetPage (printf "/%s/%s" $taxonomyType $name) -}}
+{{-     $txDict := dict "Term" $name "Count" (len $t) "Link" .RelPermalink "Mtime" .Lastmod -}}
+{{-     $txs = append $txs (slice $txDict) -}}
+{{-   end -}}
+{{- end -}}
+
+<section class="section is-fullheight terms">
+    <ul class="{{ $taxonomyType }} terms">
+	{{ range (sort $txs "Count" "desc") }}
+        <li class="tagbutton" data-term="{{.Term}}" data-count="{{.Count}}" data-last-modified="{{.Mtime.Unix}}">
+	    <a href={{ .Link }} title="All pages with {{$taxonomyType}} <i>{{.Term}}</i>">
+                {{$taxonomyIcon}} {{.Term}}
+            </a>
+            <sup>{{.Count}}</sup>
+            <br>
+            <span class="meta">
+                <time datetime="{{ .Date.Format "2006-01-02" }}" pubdate>
+                    {{ dateFormat "2006-01-02" .Mtime }}
+                </time>
+            </span>
         </li>
-        {{   end }}
         {{ end }}
     </ul>
 </section>
