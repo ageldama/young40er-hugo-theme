@@ -1,4 +1,6 @@
 
+// TODO classize
+
 /**
    sortListByData(document.querySelector('ul.terms'), 'descOrder', 'term', 'termType')
 

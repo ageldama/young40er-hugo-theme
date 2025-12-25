@@ -44,7 +44,6 @@
 
 <script src="/js/terms-sort.js" defer></script>
 
-
 <span class="sort-terms-control"
       data-desc-order="true"
       data-sort-by="count"
@@ -53,20 +52,17 @@
       data-last-modified-type="numeric" >
     <button type="button" class="sort-terms-btn by-term" onclick="sortTermsBy('term')">
         by-name
-        <span class="sort-order-indicator asc">🔼</span>
-        <span class="sort-order-indicator desc">🔽</span>
+        {{ template "terms-sort--asc-desc" }}
     </button>
 
     <button type="button" class="sort-terms-btn by-count" onclick="sortTermsBy('count')">
         by-count
-        <span class="sort-order-indicator asc">🔼</span>
-        <span class="sort-order-indicator desc">🔽</span>
+        {{ template "terms-sort--asc-desc" }}
     </button>
 
     <button type="button" class="sort-terms-btn by-last-modified" onclick="sortTermsBy('lastModified')">
         by-last-modified
-        <span class="sort-order-indicator asc">🔼</span>
-        <span class="sort-order-indicator desc">🔽</span>
+        {{ template "terms-sort--asc-desc" }}
     </button>
 </span>
 
@@ -95,4 +91,10 @@
 
 <hr class="archive-ruler">
 
+{{ end }}
+
+{{/* --- INLINES --- */}}
+{{ define "terms-sort--asc-desc" }}
+<span class="sort-order-indicator asc">🔼</span>
+<span class="sort-order-indicator desc">🔽</span>
 {{ end }}
