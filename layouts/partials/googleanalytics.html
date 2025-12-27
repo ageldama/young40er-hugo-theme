@@ -1,13 +1,13 @@
 {{ if .Site.Config.Services.GoogleAnalytics.ID }}
-{{-   $ga := .Site.Config.Services.GoogleAnalytics.ID -}}
+{{-  $ga := .Site.Config.Services.GoogleAnalytics.ID -}}
 {{   if not hugo.IsServer }}
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ $ga }}"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', '{{ $ga }}');
+ window.dataLayer = window.dataLayer || [];
+ function gtag(){dataLayer.push(arguments);}
+ gtag('js', new Date());
+ gtag('config', '{{ $ga }}', { cookie_flags: 'SameSite=None;Secure' });
 </script>
 {{   end }}
 {{ end }}
